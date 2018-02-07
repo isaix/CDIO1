@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import dal.IUserDAO;
+
 public class UserDTO implements Serializable{
 
 	private static final long serialVersionUID = 4545864587995944260L;
@@ -54,12 +56,5 @@ public class UserDTO implements Serializable{
 	public boolean removeRole(String role){
 		return this.roles.remove(role);
 	}
-
-	@Override
-	public String toString() {
-		return "UserDTO [userId=" + userId + ", userName=" + userName + ", ini=" + ini + ", roles=" + roles + "]";
-	}
-	
-	
 	
 }
