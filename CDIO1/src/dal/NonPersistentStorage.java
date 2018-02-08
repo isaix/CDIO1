@@ -1,10 +1,9 @@
-package dataLayer;
+package dal;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import dal.IUserDAO;
 import dto.UserDTO;
 
 public class NonPersistentStorage implements IUserDAO {

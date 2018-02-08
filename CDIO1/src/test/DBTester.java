@@ -4,9 +4,9 @@ package test;
 import java.util.List;
 
 import dal.IUserDAO;
+import dal.PersistentStorage;
 import dal.IUserDAO.DALException;
 import dal.UserDAODiscImpl;
-import dataLayer.PersistentStorage;
 import dto.UserDTO;
 
 public class DBTester {
