@@ -17,4 +17,10 @@ public class UserFunction {
 	public void addUser(int userId, String userName, List<String> roles, String password, String cpr) throws DALException {
 		storage.createUser(new UserDTO(userId, userName, roles, password, cpr));
 	}
+	
+	public UserDTO findUserIdFromList(int userId) throws DALException {
+		UserDTO user = storage.getUserList().get(userId);
+		return user;
+		
+	}
 }
