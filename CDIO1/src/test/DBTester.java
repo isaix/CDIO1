@@ -79,6 +79,11 @@ public class DBTester {
 		try {
 			savingTest.loadUsers();
 			printUsers(savingTest);
+			deleteUser(savingTest);
+			
+			// call list again to verify it's empty
+			printUsers(savingTest);
+			
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -89,6 +94,12 @@ public class DBTester {
 		try {
 			System.out.println("Printing users...");
 			List<UserDTO> userList = iDAO.getUserList();
+			
+			if(userList.isEmpty())
+			{
+				System.out.println("no users");
+				return;
+			}
 			for (UserDTO userDTO : userList) {
 				System.out.println(userDTO);
 			}
@@ -96,6 +107,18 @@ public class DBTester {
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
+		
+	}
+	
+	private static void deleteUser(IUserDAO iDAO) {
+		try {
+			System.out.println("deleting user");
+			List<UserDTO> userList = iDAO.getUserList();			
+			userList.remove(0);
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }
