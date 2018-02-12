@@ -11,7 +11,7 @@ import dto.UserDTO;
 public class UserFunction {
 
 	IUserDAO storage;
-	private UserFunction(IUserDAO storage) {
+	public UserFunction(IUserDAO storage) {
 		this.storage = storage;
 	}
 
@@ -75,5 +75,18 @@ public class UserFunction {
 		}
 		return null;
 	}
-
+	
+	public List<UserDTO> getUserList() throws DALException{
+		return storage.getUserList();
+	}
+	
+	public void deleteUser(int userId) {
+		try {
+			storage.deleteUser(userId);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	}

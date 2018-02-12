@@ -24,6 +24,11 @@ public class UserDTO implements Serializable{
 		this.password = password;
 		this.cpr = cpr;
 	}
+	
+	public String toString() {
+		return String.format("ID:%-4d Username:%-20s Password:%-12s Cpr:%-10s", userId, userName, password, cpr);
+	}
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -51,7 +56,7 @@ public class UserDTO implements Serializable{
 	}
 	
 	public void addRole(String role){
-		this.roles.add(role);
+		roles.add(role);
 	}
 	/**
 	 * 

@@ -6,96 +6,24 @@ import java.util.List;
 import dal.IUserDAO;
 import dal.PersistentStorage;
 import dal.IUserDAO.DALException;
+import dal.NonPersistentStorage;
 import dal.UserDAODiscImpl;
 import dto.UserDTO;
+import ful.UserFunction;
+import tui.TUI;
 
 public class DBTester {
-	
-	//TODO refactor as JUnit test???
+	IUserDAO storage = new NonPersistentStorage();
+	UserFunction function = new UserFunction(storage);
+	TUI ui = new TUI(function);
 	public static void main(String[] args) {
-//		
-//		IUserDAO iDAO = new UserDAODiscImpl();
-//		UserDTO newUser = new UserDTO();
-//		printUsers(iDAO);
-//		//TODO test new fields...
-//		newUser.setIni("test");
-//		newUser.addRole("Admin");
-//		newUser.setUserName("testName");
-//		newUser.setUserId(0);
-//		try {
-//			iDAO.createUser(newUser);
-//		} catch (DALException e) {
-//			e.printStackTrace();
-//		}
-//
-//		try {
-//			iDAO.createUser(newUser);
-//		} catch (DALException e1) {
-//			System.out.println("User already existed - OK");
-//		}
-//	
-//		newUser.setUserId(1);
-//		newUser.setUserName("2ND user");
-//		try {
-//			iDAO.createUser(newUser);
-//		} catch (DALException e1) {
-//			e1.printStackTrace();
-//		}
-//		printUsers(iDAO);
-//		newUser.setUserId(0);
-//		newUser.setUserName("ModifiedName");
-//		try {
-//			iDAO.updateUser(newUser);
-//		} catch (DALException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		printUsers(iDAO);
-//		
-//		try {
-//			iDAO.deleteUser(1);
-//		} catch (DALException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		printUsers(iDAO);
-//		
-		PersistentStorage savingTest = new PersistentStorage("test_save");
-		
-		try {
-			UserDTO user = new UserDTO();
-			user.setIni("test");
-			user.addRole("Admin");
-			user.setUserName("testName");
-			user.setUserId(1);
-			savingTest.createUser(user);
-			savingTest.saveTofile();
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			savingTest.loadUsers();
-			printUsers(savingTest);
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		DBTester test = new DBTester();
+		test.run();
+	}
+	
+	public void run() {
+		while(true) {
+			ui.showMenu();
 		}
 	}
-
-	private static void printUsers(IUserDAO iDAO) {
-		try {
-			System.out.println("Printing users...");
-			List<UserDTO> userList = iDAO.getUserList();
-			for (UserDTO userDTO : userList) {
-				System.out.println(userDTO);
-			}
-
-		} catch (DALException e) {
-			e.printStackTrace();
-		}
-	}
-
 }

@@ -6,33 +6,27 @@ import java.util.stream.Collectors;
 import dto.UserDTO;
 
 public class NonPersistentStorage implements IUserDAO {
-	
+
 	ArrayList<UserDTO> users = new ArrayList<UserDTO>();
 	public NonPersistentStorage() {
 		users.add(new UserDTO(11, "Mads Jørgensen", new ArrayList<String>(Arrays.asList("test")), "root", "080197-0761") );
 		users.add(new UserDTO(12, "Frederik Husted", new ArrayList<String>(Arrays.asList("test", "Bassist")), "root", "123456-7890"));
-		users.add(new UserDTO(12, "Frederik Husted", new ArrayList<String>(Arrays.asList("test", "Bassist")), "root", "123456-7890"));
+		users.add(new UserDTO(13, "Frederik Husted", new ArrayList<String>(Arrays.asList("test", "Bassist")), "root", "123456-7890"));
 
 	}
 
 	@Override
 	public UserDTO getUser(int userId) throws DALException {
-		
-		// ######## Har vi ikke lÃ¦rt endnu ########
-		UserDTO user = users.stream().filter(u->u.getUserId() == userId).collect(Collectors.toList()).get(0);
-	
+
+
+		UserDTO user = null;
+		for (UserDTO u : users) {
+			if (u.getUserId() == userId) {
+				user = u;
+			}
+		}
 		return user;
-		
-		
-//		####### almindeligt for loop ######
-/**		
-* UserDTO user = new UserDTO();
-*		for (UserDTO u : users) {
-*			if (u.getUserId() == userId) {
-*				user = u;
-*			}
-*		}
-**/
+
 	}
 
 	@Override
@@ -44,7 +38,7 @@ public class NonPersistentStorage implements IUserDAO {
 	public void createUser(UserDTO user) throws DALException {
 		// TODO Auto-generated method stub
 		users.add(user);
-		
+
 	}
 
 	@Override
@@ -65,5 +59,5 @@ public class NonPersistentStorage implements IUserDAO {
 			}
 		}
 	}
-	
+
 }
