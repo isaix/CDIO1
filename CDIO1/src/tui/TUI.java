@@ -17,16 +17,22 @@ public class TUI {
 	}
 
 	public void showMenu() {
-		Scanner in = new Scanner(System.in);
+
 		System.out.println(
 				"--Menu--\n" + 
-				"1. Opret Ny Bruger\n"+ 
-				"2. List brugere\n" + 
-				"3. Ret Bruger\n" + 
-				"4. Slet Bruger\n" + 
+						"1. Opret Ny Bruger\n"+ 
+						"2. List brugere\n" + 
+						"3. Ret Bruger\n" + 
+						"4. Slet Bruger\n" + 
 				"5. Afslut Program\n");
 
-		switch(in.nextInt()) {
+		System.out.println("Tryk venligst et tal mellem 1 og 5");
+		try {
+		int choice = in.nextInt();
+		}catch (Exception e) {
+		}
+
+		switch(choice) {
 		case 1: createUser();
 		break;
 		case 2: listUsers();
@@ -35,6 +41,10 @@ public class TUI {
 		break;
 		case 4: deleteUser();
 		break;
+		default:
+			System.out.println("FEJL: Tryk venligst et tal mellem 1 og 5");
+			choice = 0;
+			break;
 		}
 	}
 
@@ -50,7 +60,7 @@ public class TUI {
 
 		System.out.println("Skriv brugerens roller. Skriv ok når du er færdig");
 
-		while(in.next().equals("ok")) {
+		while(!in.next().equals("ok")) {
 			roles.add(in.next());
 		}
 
@@ -67,7 +77,6 @@ public class TUI {
 			e.printStackTrace();
 		}
 
-		in.close();
 	}
 
 	private void editUser() {
@@ -79,7 +88,7 @@ public class TUI {
 		System.out.println(
 				"--Du har valgt " + currentUser.getUserName() + ", hvad vil du ændre?\n" +
 						"1. Brugernavn\n" + 
-						"2. Password" + 
+						"2. Password\n" + 
 				"3. Roller");
 		switch(in.nextInt()) {
 		case 1: System.out.println("Indtast nyt brugernavn");

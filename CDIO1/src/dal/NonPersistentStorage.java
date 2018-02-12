@@ -15,9 +15,9 @@ public class NonPersistentStorage implements IUserDAO {
 
 	}
 
+	
 	@Override
 	public UserDTO getUser(int userId) throws DALException {
-
 
 		UserDTO user = null;
 		for (UserDTO u : users) {
@@ -44,9 +44,10 @@ public class NonPersistentStorage implements IUserDAO {
 	@Override
 	public void updateUser(UserDTO user) throws DALException {
 		// TODO Auto-generated method stub
-		for (int i = 0; i<=users.size();i++) {
+		for (int i = 0; i< users.size();i++) {
 			if (users.get(i).getUserId() == user.getUserId()) {
 				users.set(i, user);
+				return;
 			}
 		}	
 	}
