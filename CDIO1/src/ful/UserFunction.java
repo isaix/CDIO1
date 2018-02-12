@@ -20,7 +20,7 @@ public class UserFunction {
 	
 	public UserDTO findUserIdFromList(int userId) throws DALException {
 		UserDTO user = storage.getUserList().get(userId);
-		return user;
+		return user; 
 		
 	}
 }
