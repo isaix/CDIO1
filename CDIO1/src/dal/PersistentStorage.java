@@ -1,4 +1,4 @@
-package dataLayer;
+package dal;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import dal.IUserDAO;
-import dal.IUserDAO.DALException;
 import dal.UserStore;
 import dto.UserDTO;
 
