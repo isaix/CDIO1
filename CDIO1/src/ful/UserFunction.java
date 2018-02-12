@@ -23,4 +23,8 @@ public class UserFunction {
 		return user; 
 		
 	}
+	
+	public List<UserDTO> getUserList() throws DALException{
+		return storage.getUserList();
+	}
 }
