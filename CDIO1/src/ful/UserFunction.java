@@ -59,13 +59,13 @@ public class UserFunction {
 				currentUser.getRoles().add(newRoles.get(i));
 			}
 
-			}
-			catch (DALException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
-	
+		catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public UserDTO findUser(int userId) {
 		try {
 			return storage.getUser(userId);
@@ -75,11 +75,11 @@ public class UserFunction {
 		}
 		return null;
 	}
-	
+
 	public List<UserDTO> getUserList() throws DALException{
 		return storage.getUserList();
 	}
-	
+
 	public void deleteUser(int userId) {
 		try {
 			storage.deleteUser(userId);
@@ -88,5 +88,24 @@ public class UserFunction {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public boolean assertPasswordQuality(String password) {
+		//TODO write method
+		return true;
 	}
+
+	public boolean asserIfIdExists(int userId) {
+		try {
+			for(int i = 0; i < storage.getUserList().size(); i++) {
+
+				if(storage.getUserList().get(i).getUserId() == userId) {
+					return true;
+				}
+
+			} } catch (DALException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace(); 
+			} return false;
+
+	}
+}

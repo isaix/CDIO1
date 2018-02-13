@@ -26,7 +26,7 @@ public class UserDTO implements Serializable{
 	}
 	
 	public String toString() {
-		return String.format("ID:%-4d Username:%-20s Password:%-12s Cpr:%-10s", userId, userName, password, cpr);
+		return String.format("ID:%-4d Username:%-20s Password:%-12s Cpr:%-10s Roller: " + roles, userId, userName, password, cpr);
 	}
 	
 	public int getUserId() {

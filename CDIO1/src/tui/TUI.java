@@ -17,6 +17,7 @@ public class TUI {
 	}
 
 	public void showMenu() {
+		Scanner in = new Scanner(System.in);
 
 		System.out.println(
 				"--Menu--\n" + 
@@ -27,8 +28,9 @@ public class TUI {
 				"5. Afslut Program\n");
 
 		System.out.println("Tryk venligst et tal mellem 1 og 5");
+		int choice = 0;
 		try {
-		int choice = in.nextInt();
+		choice = in.nextInt();
 		}catch (Exception e) {
 		}
 
@@ -40,6 +42,8 @@ public class TUI {
 		case 3: editUser();
 		break;
 		case 4: deleteUser();
+		break;
+		case 5: System.exit(0);
 		break;
 		default:
 			System.out.println("FEJL: Tryk venligst et tal mellem 1 og 5");
@@ -53,6 +57,11 @@ public class TUI {
 
 		System.out.println("Skriv brugerens id (11-99)");
 		int id = in.nextInt();
+		
+		while(function.asserIfIdExists(id)) {
+		System.out.println("Id findes allerede. Prøv igen");
+		id = in.nextInt();
+		}
 
 		System.out.println("Skriv brugerens navn");
 		String userName = in.next();
@@ -60,8 +69,13 @@ public class TUI {
 
 		System.out.println("Skriv brugerens roller. Skriv ok når du er færdig");
 
-		while(!in.next().equals("ok")) {
-			roles.add(in.next());
+		String newRole;
+		while(true) {
+			newRole = in.next();
+			if(newRole.equals("ok")) {
+				break;
+			}
+			roles.add(newRole);
 		}
 
 		System.out.println("Skriv brugerens password");
@@ -99,8 +113,13 @@ public class TUI {
 		break;
 		case 3: System.out.println("Indtast nye roller, tryk ok når du er færdig");
 		ArrayList<String> roles = new ArrayList<String>();
-		while(!in.next().equals("ok")) {
-			roles.add(in.next());
+		String newRole;
+		while(true) {
+			newRole = in.next();
+			if(newRole.equals("ok")) {
+				break;
+			}
+			roles.add(newRole);
 		}
 		for(int i = 0; i < roles.size(); i++) {
 			currentUser.addRole(roles.get(i));
