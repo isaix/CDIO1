@@ -88,12 +88,6 @@ public class UserFunction {
 			e.printStackTrace();
 		}
 	}
-
-	public boolean assertPasswordQuality(String password) {
-		//TODO write method
-		return true;
-	}
-
 	public boolean asserIfIdExists(int userId) {
 		try {
 			for(int i = 0; i < storage.getUserList().size(); i++) {
@@ -106,6 +100,64 @@ public class UserFunction {
 				// TODO Auto-generated catch block
 				e.printStackTrace(); 
 			} return false;
+	}
 
+	public boolean assertPasswordQuality(String password) {
+		if(password.length() < 6) {
+			return false;
+		}
+		int smallLetterCount = 0;
+		for(int i = 0; i < password.length(); i++) {
+			if(Character.isLowerCase(password.charAt(i))) {
+				smallLetterCount++;
+			}
+		} int bigLetterCount = 0;
+		for(int i = 0; i < password.length(); i++) {
+			if(Character.isUpperCase(password.charAt(i))) {
+				bigLetterCount++;
+			}
+		}  int numberCount = 0;
+		for(int i = 0; i < password.length(); i++) {
+			if(Character.isDigit(password.charAt(i))){
+				numberCount++;
+			}
+		} int specialCount = 0;
+		for(int i = 0; i < password.length(); i++) {
+			switch(password.charAt(i)) {
+			case '.' : specialCount++;
+			break;
+			case '-' : specialCount++;
+			break;
+			case '_' : specialCount++;
+			break;
+			case '+' : specialCount++;
+			break;
+			case '!' : specialCount++;
+			break;
+			case '?' : specialCount++;
+			break;
+			case '=' : specialCount++;
+			break;
+			}
+		}
+		int count = 0;
+		if(smallLetterCount != 0) {
+			count++;
+		} if(bigLetterCount != 0) {
+			count++;
+		} if(numberCount != 0) {
+			count++;
+		} if(specialCount != 0) {
+			count ++;
+		}
+
+		if(count < 3) {
+			return false;
+		}
+		if(password.length() != smallLetterCount + bigLetterCount + numberCount + specialCount) {
+			return false;
+		}
+
+		return true;
 	}
 }

@@ -1,6 +1,7 @@
 package tui;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import dal.IUserDAO.DALException;
@@ -9,7 +10,6 @@ import ful.UserFunction;
 
 public class TUI {
 
-	Scanner in = new Scanner(System.in);
 	UserFunction function;
 
 	public TUI(UserFunction function) {
@@ -30,8 +30,8 @@ public class TUI {
 		System.out.println("Tryk venligst et tal mellem 1 og 5");
 		int choice = 0;
 		try {
-		choice = in.nextInt();
-		}catch (Exception e) {
+			choice = in.nextInt();
+		}catch (InputMismatchException e) {
 		}
 
 		switch(choice) {
@@ -53,21 +53,30 @@ public class TUI {
 	}
 
 	private void createUser() {
-
+		Scanner in = new Scanner(System.in);
 
 		System.out.println("Skriv brugerens id (11-99)");
-		int id = in.nextInt();
-		
-		while(function.asserIfIdExists(id)) {
-		System.out.println("Id findes allerede. Prøv igen");
-		id = in.nextInt();
+		int id = 0;
+
+		while(true) {
+			try {
+				id = in.nextInt();
+				if(id < 11 || id > 99) {
+					System.out.println("Id skal være mellem 11 og 99. Prøv igen");
+				} else if(function.asserIfIdExists(id)){
+					System.out.println("Id findes allerede. Prøv igen");
+				} else break;
+			} catch(InputMismatchException e) {
+				System.out.println("FEJL: Skriv venligst et tal mellem 11 og 99");
+				in.next();
+			} 
 		}
 
 		System.out.println("Skriv brugerens navn");
 		String userName = in.next();
-		ArrayList<String> roles = new ArrayList<String>();
 
-		System.out.println("Skriv brugerens roller. Skriv ok når du er færdig");
+		ArrayList<String> roles = new ArrayList<String>();
+		System.out.println("Skriv brugerens roller. Brug enter efter hver rolle. Skriv ok når du er færdig");
 
 		String newRole;
 		while(true) {
@@ -80,24 +89,45 @@ public class TUI {
 
 		System.out.println("Skriv brugerens password");
 		String password = in.next();
+		
+		while(!function.assertPasswordQuality(password)) {
+			System.out.println("Adgangskoden skal indeholde mindst 6 tegn af mindst tre af de følgende fire kategorier: \nsmå bogstaver (’a’ til ’z’), store bogstaver (’A’ til ’Z’), \ncifre (’0’ til ’9’) og specialtegn ('.', '-', '_', '+', '!', '?', '=').");
+			password = in.next();
+		}
 
 		System.out.println("Skriv brugerens cpr");
+
 		String cpr = in.next();
 
 		try {
 			function.addUser(id, userName, roles, password, cpr);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Brugeren kunne ikke tilføjes. Afslutter til menu");
 		}
 
 	}
 
 	private void editUser() {
+		Scanner in = new Scanner(System.in);
 
-		System.out.println("Vælg bruger");
+		System.out.println("Vælg id på den bruger du vil ændre på.");
 
-		UserDTO currentUser = function.findUser(in.nextInt());
+		int id = 0;
+
+		while(true) {
+			try {
+				id = in.nextInt();
+				if(id < 11 || id > 99) {
+					System.out.println("Id skal være mellem 11 og 99. Prøv igen");
+				} else if(!function.asserIfIdExists(id)){
+					System.out.println("Id findes ikke. Prøv igen");
+				} else break;
+			} catch(InputMismatchException e) {
+				System.out.println("Skriv venligst et tal mellem 11 og 99.");
+				in.next();
+			}
+		}
+		UserDTO currentUser = function.findUser(id);
 
 		System.out.println(
 				"--Du har valgt " + currentUser.getUserName() + ", hvad vil du ændre?\n" +
@@ -134,20 +164,19 @@ public class TUI {
 				System.out.println(function.getUserList().get(i).toString());
 			}
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Der er sket en fejl. Afslutter til hovedmenu");
 		}
 	}
 
 	private void deleteUser() {
+		Scanner in = new Scanner(System.in);
 
-		System.out.println("Indtast ID på den bruger du vul slette");
+		System.out.println("Indtast ID på den bruger du vil slette");
 
 		try {
 			function.deleteUser(in.nextInt());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (InputMismatchException e) {
+			System.out.println("Skriv venligst et tal mellem 11 og 99. Afslutter til hovedmenu");
 		}
 
 	}
