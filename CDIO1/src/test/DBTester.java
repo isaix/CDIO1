@@ -26,8 +26,8 @@ public class DBTester {
 		
 		DatabaseStorage db = new DatabaseStorage();
         try {
-        		//db.testConnection();
-			db.readDataBase();
+        		db.testConnection();
+			//db.readDataBase();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
