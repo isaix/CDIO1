@@ -10,25 +10,32 @@ import dto.UserDTO;
 
 public class UserFunction {
 	
-	public UserFunction() {
-		
-	}
-
-	IUserDAO storage;
-	public UserFunction(IUserDAO storage) {
-		this.storage = storage;
+	PersistentStorage storage = new PersistentStorage("saveData");
+	
+	public UserFunction(PersistentStorage storage) {
+		try {
+			storage.loadUsers();
+			this.storage = storage;
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void addUser(int userId, String userName, List<String> roles, String password, String cpr) throws DALException {
+		
 		storage.createUser(new UserDTO(userId, userName, roles, password, cpr));
+		storage.saveTofile();
 	}
 
 	public void editName(int userId, String newName) {
+		
 		try {
 			for(int i = 0; i < storage.getUserList().size(); i++) {
 				if (storage.getUserList().get(i).getUserId() == userId) {
 					storage.getUserList().get(i).setUserName(newName);
 					storage.updateUser(storage.getUserList().get(i));
+					storage.saveTofile();
 				}
 			}
 		} catch (DALException e) {
@@ -43,6 +50,7 @@ public class UserFunction {
 				if (storage.getUserList().get(i).getUserId() == userId) {
 					storage.getUserList().get(i).setPassword(newPassword);
 					storage.updateUser(storage.getUserList().get(i));
+					storage.saveTofile();
 				}
 			}
 		} catch (DALException e) {
@@ -60,7 +68,13 @@ public class UserFunction {
 				}
 			}
 			for(int i = 0; i < newRoles.size(); i++) {
+				
+				//currentUser.setRoles(roles);
 				currentUser.getRoles().add(newRoles.get(i));
+			}
+			if (currentUser != null) {
+				storage.updateUser(currentUser);
+				storage.saveTofile();
 			}
 
 		}

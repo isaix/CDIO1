@@ -4,7 +4,7 @@ import ful.UserFunction;
 import tui.TUI;
 
 public class DBTester {
-	PersistentStorage storage = new PersistentStorage("testFile");
+	PersistentStorage storage = new PersistentStorage("savedData");
 	UserFunction function = new UserFunction(storage);
 	TUI ui = new TUI(function);
 	public static void main(String[] args) {
