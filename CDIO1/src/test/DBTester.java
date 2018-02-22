@@ -25,10 +25,10 @@ public class DBTester {
 //		db.testConnection();
 		
 		
-		System.out.println("Working Directory = " +
-	              System.getProperty("user.dir"));
-			
-		
+//		System.out.println("Working Directory = " +
+//	              System.getProperty("user.dir"));
+//			
+//		
 		DBTester test = new DBTester();
 //		test.run();
 		try {

@@ -30,7 +30,7 @@ public class PersistentStorage implements IUserDAO {
 		UserStore userStore = new UserStore();
 		ObjectInputStream oIS = null;
 		try {
-			FileInputStream fIS = new FileInputStream("/Users/isaacirani/git/CDIO1/" + fileName);
+			FileInputStream fIS = new FileInputStream(System.getProperty("user.dir") + "/src/test/" + fileName);
 			oIS = new ObjectInputStream(fIS);
 			Object inObj = oIS.readObject();
 			if (inObj instanceof UserStore){
@@ -111,7 +111,7 @@ public class PersistentStorage implements IUserDAO {
 
 	public void saveTofile() {
 		
-		File file = new File("/Users/isaacirani/git/CDIO1/" + fileName);
+		File file = new File(System.getProperty("user.dir") + "/src/test/" + fileName);
 		UserStore userStore = new UserStore();
 		
 		Map<Integer, UserDTO> userMap = new HashMap<Integer, UserDTO>();
