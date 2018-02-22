@@ -7,11 +7,13 @@ import java.util.Scanner;
 import dal.IUserDAO.DALException;
 import dto.UserDTO;
 import ful.UserFunction;
+import dal.PasswordGenerator;
 
 public class TUI {
 
 	UserFunction function;
-
+	PasswordGenerator passGen = new PasswordGenerator();
+	
 	public TUI(UserFunction function) {
 		this.function = function;
 	}
@@ -62,9 +64,9 @@ public class TUI {
 			try {
 				id = in.nextInt();
 				if(id < 11 || id > 99) {
-					System.out.println("Id skal være mellem 11 og 99. Prøv igen");
+					System.out.println("Id skal vï¿½re mellem 11 og 99. Prï¿½v igen");
 				} else if(function.asserIfIdExists(id)){
-					System.out.println("Id findes allerede. Prøv igen");
+					System.out.println("Id findes allerede. Prï¿½v igen");
 				} else break;
 			} catch(InputMismatchException e) {
 				System.out.println("FEJL: Skriv venligst et tal mellem 11 og 99");
@@ -77,7 +79,7 @@ public class TUI {
 		String userName = in.nextLine();
 
 		ArrayList<String> roles = new ArrayList<String>();
-		System.out.println("Skriv brugerens roller. Brug enter efter hver rolle. Skriv ok når du er færdig");
+		System.out.println("Skriv brugerens roller. Brug enter efter hver rolle. Skriv ok nï¿½r du er fï¿½rdig");
 
 		String newRole;
 		while(true) {
@@ -87,12 +89,14 @@ public class TUI {
 			}
 			roles.add(newRole);
 		}
-
-		System.out.println("Skriv brugerens password");
-		String password = in.next();
+		
+		
+		String password = PasswordGenerator.generatePassword(10, PasswordGenerator.ALPHA_CAPS + PasswordGenerator.ALPHA +PasswordGenerator.NUMERIC);
+		System.out.println("Brugerens password er: " + password);
+		
 		
 		while(!function.assertPasswordQuality(password)) {
-			System.out.println("Adgangskoden skal indeholde mindst 6 tegn af mindst tre af de følgende fire kategorier: \nsmå bogstaver (’a’ til ’z’), store bogstaver (’A’ til ’Z’), \ncifre (’0’ til ’9’) og specialtegn ('.', '-', '_', '+', '!', '?', '=').");
+			System.out.println("Adgangskoden skal indeholde mindst 6 tegn af mindst tre af de fï¿½lgende fire kategorier: \nsmï¿½ bogstaver (ï¿½aï¿½ til ï¿½zï¿½), store bogstaver (ï¿½Aï¿½ til ï¿½Zï¿½), \ncifre (ï¿½0ï¿½ til ï¿½9ï¿½) og specialtegn ('.', '-', '_', '+', '!', '?', '=').");
 			password = in.next();
 		}
 
@@ -103,7 +107,7 @@ public class TUI {
 		try {
 			function.addUser(id, userName, roles, password, cpr);
 		} catch (DALException e) {
-			System.out.println("Brugeren kunne ikke tilføjes. Afslutter til menu");
+			System.out.println("Brugeren kunne ikke tilfï¿½jes. Afslutter til menu");
 		}
 
 	}
@@ -111,7 +115,7 @@ public class TUI {
 	private void editUser() {
 		Scanner in = new Scanner(System.in);
 
-		System.out.println("Vælg id på den bruger du vil ændre på.");
+		System.out.println("Vï¿½lg id pï¿½ den bruger du vil ï¿½ndre pï¿½.");
 
 		int id = 0;
 
@@ -119,9 +123,9 @@ public class TUI {
 			try {
 				id = in.nextInt();
 				if(id < 11 || id > 99) {
-					System.out.println("Id skal være mellem 11 og 99. Prøv igen");
+					System.out.println("Id skal vï¿½re mellem 11 og 99. Prï¿½v igen");
 				} else if(!function.asserIfIdExists(id)){
-					System.out.println("Id findes ikke. Prøv igen");
+					System.out.println("Id findes ikke. Prï¿½v igen");
 				} else break;
 			} catch(InputMismatchException e) {
 				System.out.println("Skriv venligst et tal mellem 11 og 99.");
@@ -131,7 +135,7 @@ public class TUI {
 		UserDTO currentUser = function.findUser(id);
 
 		System.out.println(
-				"--Du har valgt " + currentUser.getUserName() + ", hvad vil du ændre?\n" +
+				"--Du har valgt " + currentUser.getUserName() + ", hvad vil du ï¿½ndre?\n" +
 						"1. Brugernavn\n" + 
 						"2. Password\n" + 
 				"3. Roller");
@@ -142,7 +146,7 @@ public class TUI {
 		case 2: System.out.println("Indtast nyt password");
 		function.editPassword(currentUser.getUserId(), in.next());
 		break;
-		case 3: System.out.println("Indtast nye roller, tryk ok når du er færdig");
+		case 3: System.out.println("Indtast nye roller, tryk ok nï¿½r du er fï¿½rdig");
 		ArrayList<String> roles = new ArrayList<String>();
 		String newRole;
 		while(true) {
@@ -157,6 +161,7 @@ public class TUI {
 		}
 		break;
 		}
+		in.close();
 	}
 
 	private void listUsers() {
@@ -172,7 +177,7 @@ public class TUI {
 	private void deleteUser() {
 		Scanner in = new Scanner(System.in);
 
-		System.out.println("Indtast ID på den bruger du vil slette");
+		System.out.println("Indtast ID pï¿½ den bruger du vil slette");
 
 		try {
 			function.deleteUser(in.nextInt());
