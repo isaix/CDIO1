@@ -13,13 +13,13 @@ public class TUI {
 
 	UserFunction function;
 	PasswordGenerator passGen = new PasswordGenerator();
+	Scanner in = new Scanner(System.in);
 	
 	public TUI(UserFunction function) {
 		this.function = function;
 	}
 
 	public void showMenu() {
-		Scanner in = new Scanner(System.in);
 
 		System.out.println(
 				"--Menu--\n" + 
@@ -55,7 +55,6 @@ public class TUI {
 	}
 
 	private void createUser() {
-		Scanner in = new Scanner(System.in);
 
 		System.out.println("Skriv brugerens id (11-99)");
 		int id = 0;
@@ -93,12 +92,6 @@ public class TUI {
 		
 		String password = PasswordGenerator.generatePassword(10, PasswordGenerator.ALPHA_CAPS + PasswordGenerator.ALPHA +PasswordGenerator.NUMERIC);
 		System.out.println("Brugerens password er: " + password);
-		
-		
-		while(!function.assertPasswordQuality(password)) {
-			System.out.println("Adgangskoden skal indeholde mindst 6 tegn af mindst tre af de f�lgende fire kategorier: \nsm� bogstaver (�a� til �z�), store bogstaver (�A� til �Z�), \ncifre (�0� til �9�) og specialtegn ('.', '-', '_', '+', '!', '?', '=').");
-			password = in.next();
-		}
 
 		System.out.println("Skriv brugerens cpr");
 
@@ -113,7 +106,7 @@ public class TUI {
 	}
 
 	private void editUser() {
-		Scanner in = new Scanner(System.in);
+		
 
 		System.out.println("V�lg id p� den bruger du vil �ndre p�.");
 
@@ -161,7 +154,6 @@ public class TUI {
 		}
 		break;
 		}
-		in.close();
 	}
 
 	private void listUsers() {
