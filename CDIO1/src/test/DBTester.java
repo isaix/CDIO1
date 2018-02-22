@@ -30,7 +30,6 @@ public class DBTester {
 			
 		
 		DBTester test = new DBTester();
-//		test.run();
 		try {
 			test.storage.loadUsers();
 			printUsers(test.storage);
@@ -38,25 +37,27 @@ public class DBTester {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			UserDTO user = new UserDTO(0, null, null, null, null);
-			//user.addRole;
-			user.setUserName("testName");
-			user.setUserId(1);
-			test.storage.createUser(user);
-			test.storage.saveTofile();;
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			test.storage.loadUsers();
-			printUsers(test.storage);
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		test.run();
+//		try {
+//			test.storage.loadUsers();
+//			printUsers(test.storage);
+//		} catch (DALException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			UserDTO user = new UserDTO(0, null, null, null, null);
+//			//user.addRole;
+//			user.setUserName("testName");
+//			user.setUserId(1);
+//			test.storage.createUser(user);
+//			test.storage.saveTofile();;
+//		} catch (DALException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//
 	}
 	
 	public void run() {
