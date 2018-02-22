@@ -24,14 +24,8 @@ public class DBTester {
 //		DatabaseStorage db = new DatabaseStorage();
 //		db.testConnection();
 		
-		DatabaseStorage db = new DatabaseStorage();
-        try {
-        		db.testConnection();
-			//db.readDataBase();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        DBTester test = new DBTester();
+        test.run();
 	}
 	
 	public void run() {

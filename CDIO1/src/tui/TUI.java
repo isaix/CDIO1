@@ -73,7 +73,8 @@ public class TUI {
 		}
 
 		System.out.println("Skriv brugerens navn");
-		String userName = in.next();
+		in.nextLine();
+		String userName = in.nextLine();
 
 		ArrayList<String> roles = new ArrayList<String>();
 		System.out.println("Skriv brugerens roller. Brug enter efter hver rolle. Skriv ok når du er færdig");
