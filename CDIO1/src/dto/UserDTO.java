@@ -19,14 +19,13 @@ public class UserDTO implements Serializable{
 	public UserDTO(int userId, String userName, List<String> roles, String password, String cpr) {
 		this.userId = userId;
 		this.userName = userName;
-		ini = "root";
 		this.roles = roles;
 		this.password = password;
 		this.cpr = cpr;
 	}
 	
 	public String toString() {
-		return String.format("ID:%-4d Username:%-20s Password:%-12s Cpr:%-10s", userId, userName, password, cpr);
+		return String.format("ID:%-4d Username:%-20s Initials:%-4s Password:%-12s Cpr:%-14s Roller: " + roles, userId, userName, getIni(), password, cpr);
 	}
 	
 	public int getUserId() {
@@ -41,9 +40,7 @@ public class UserDTO implements Serializable{
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getIni() {
-		return ini;
-	}
+
 	public void setIni(String ini) {
 		this.ini = ini;
 	}
@@ -77,6 +74,15 @@ public class UserDTO implements Serializable{
 	}
 	public void setCpr(String cpr) {
 		this.cpr = cpr;
+	}
+	
+	public String getIni() {
+		String ini = "";
+		for(int i = 0; i < userName.length() && ini.length() < 4; i++) {
+			if(Character.isUpperCase(userName.charAt(i))) {
+				ini = ini + userName.charAt(i);
+			}
+		} return ini;
 	}
 	
 	
