@@ -9,6 +9,10 @@ import dal.PersistentStorage;
 import dto.UserDTO;
 
 public class UserFunction {
+	
+	public UserFunction() {
+		
+	}
 
 	IUserDAO storage;
 	public UserFunction(IUserDAO storage) {

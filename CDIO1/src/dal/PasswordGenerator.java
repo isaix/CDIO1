@@ -7,10 +7,10 @@ public class PasswordGenerator {
     private static SecureRandom random = new SecureRandom();
  
     /** different dictionaries used */
-    private static final String ALPHA_CAPS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
-    private static final String NUMERIC = "0123456789";
-    private static final String SPECIAL_CHARS = "!@#$%^&*_=+-/";
+    public static final String ALPHA_CAPS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
+    public static final String NUMERIC = "0123456789";
+    public static final String SPECIAL_CHARS = "!@#$%^&*_=+-/";
  
     /**
      * Method will generate random string based on the parameters

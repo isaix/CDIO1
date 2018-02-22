@@ -9,9 +9,9 @@ public class NonPersistentStorage implements IUserDAO {
 
 	ArrayList<UserDTO> users = new ArrayList<UserDTO>();
 	public NonPersistentStorage() {
-		users.add(new UserDTO(11, "Mads Jørgensen", new ArrayList<String>(Arrays.asList("test")), "root", "080197-0761") );
-		users.add(new UserDTO(12, "Frederik Husted", new ArrayList<String>(Arrays.asList("test", "Bassist")), "root", "123456-7890"));
-		users.add(new UserDTO(13, "Frederik Husted", new ArrayList<String>(Arrays.asList("test", "Bassist")), "root", "123456-7890"));
+//		users.add(new UserDTO(11, "Mads Jï¿½rgensen", new ArrayList<String>(Arrays.asList("test")), "root", "080197-0761") );
+//		users.add(new UserDTO(12, "Frederik Husted", new ArrayList<String>(Arrays.asList("test", "Bassist")), "root", "123456-7890"));
+//		users.add(new UserDTO(13, "Frederik Husted", new ArrayList<String>(Arrays.asList("test", "Bassist")), "root", "123456-7890"));
 
 	}
 
