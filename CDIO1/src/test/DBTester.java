@@ -18,19 +18,35 @@ public class DBTester {
 	IUserDAO storage = new NonPersistentStorage();
 	UserFunction function = new UserFunction(storage);
 	TUI ui = new TUI(function);
+	
+	
 	public static void main(String[] args) {
 //		DBTester test = new DBTester();
 //		test.run();
 //		DatabaseStorage db = new DatabaseStorage();
 //		db.testConnection();
 		
-		DatabaseStorage db = new DatabaseStorage();
-        try {
-        		db.testConnection();
-			//db.readDataBase();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//		DatabaseStorage db = new DatabaseStorage();
+//        try {
+//        		db.testConnection();
+//			//db.readDataBase();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		int[] arrays = {1,2,3,4,5,6,8,9,10};
+		
+		for(int i = 1; 1 <= arrays.length; i++) {
+			
+			for(int j = i-1; j <= arrays.length-1;j++) {
+				
+				if (i != arrays[j] && j+1 != arrays[j]) {
+					
+					System.out.println(i);
+					
+				}
+			}
 		}
 	}
 	
