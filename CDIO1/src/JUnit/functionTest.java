@@ -63,9 +63,7 @@ public class functionTest {
 	@Test
 	public void testDeleteUser() throws DALException {
 		us.deleteUser(u.getUserId());
-		//storage.loadUsers();
-		UserDTO expected = null;
-		UserDTO actual = storage.getUser(u.getUserId());
-		assertEquals("Fail!!!", expected, actual);
+		UserDTO actual = us.findUser(u.getUserId());
+		assertTrue(actual == null);
 	}
 }

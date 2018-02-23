@@ -60,22 +60,15 @@ public class PersistentStorage implements IUserDAO {
 	
 	@Override
 	public UserDTO getUser(int userId) throws DALException {
-		
-		// ######## Har vi ikke lært endnu ########
-		UserDTO user = users.stream().filter(u->u.getUserId() == userId).collect(Collectors.toList()).get(0);
-	
-		return user;
-		
-		
-//		####### almindeligt for loop ######
-/**		
-* UserDTO user = new UserDTO();
-*		for (UserDTO u : users) {
-*			if (u.getUserId() == userId) {
-*				user = u;
-*			}
-*		}
-**/
+
+		if(users.size()!= 0) {
+		for (UserDTO u : users) {
+			if (u.getUserId() == userId) {
+				return u;
+			}
+		}
+		}return null;
+
 	}
 
 	@Override
@@ -102,7 +95,7 @@ public class PersistentStorage implements IUserDAO {
 
 	@Override
 	public void deleteUser(int userId) throws DALException {
-		for (int i = 0; i<users.size()+11;i++) {
+		for (int i = 0; i<users.size();i++) {
 			if (users.get(i).getUserId() == userId) {
 				users.remove(i);
 			}
