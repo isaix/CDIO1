@@ -102,7 +102,7 @@ public class PersistentStorage implements IUserDAO {
 
 	@Override
 	public void deleteUser(int userId) throws DALException {
-		for (int i = 0; i<users.size();i++) {
+		for (int i = 0; i<users.size()+11;i++) {
 			if (users.get(i).getUserId() == userId) {
 				users.remove(i);
 			}

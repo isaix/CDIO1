@@ -65,13 +65,14 @@ public class UserFunction {
 			for(int i = 0; i < storage.getUserList().size()-1; i++) {
 				if (storage.getUserList().get(i).getUserId() == userId) {
 					currentUser = storage.getUserList().get(i);
+					currentUser.setRoles(newRoles);
 				}
 			}
-			for(int i = 0; i < newRoles.size(); i++) {
-				
-				//currentUser.setRoles(roles);
-				currentUser.getRoles().add(newRoles.get(i));
-			}
+//			for(int i = 0; i < newRoles.size(); i++) {
+//				
+//				
+//				//currentUser.getRoles().add(newRoles.get(i));
+//			}
 			if (currentUser != null) {
 				storage.updateUser(currentUser);
 				storage.saveTofile();
