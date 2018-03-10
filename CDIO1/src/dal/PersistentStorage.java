@@ -137,10 +137,5 @@ public class PersistentStorage implements IUserDAO {
         } catch (IOException e) {
             e.printStackTrace();
         }
-		
-		
-		
-		
-		
 	}
 }

@@ -1,3 +1,4 @@
+
 package tui;
 
 import java.util.ArrayList;
@@ -182,7 +183,7 @@ public class TUI {
 		} catch (DALException e) {
 			System.out.println(e.getMessage());
 		}
-  
+
 	}
 
 }
