@@ -105,7 +105,7 @@ public class PersistentStorage implements IUserDAO {
 			if (users.get(i).getUserId() == userId) {
 				users.remove(i);
 			}
-		} throw new DALException("User with ID " + userId + "not found");	
+		} throw new DALException("User with ID " + userId + "not found");	 
 	}
 
 	public void saveTofile() {
