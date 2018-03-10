@@ -9,9 +9,9 @@ import dal.PersistentStorage;
 import dto.UserDTO;
 
 public class UserFunction {
-	
+
 	public UserFunction() {
-		
+
 	}
 
 	IUserDAO storage;
@@ -23,87 +23,69 @@ public class UserFunction {
 		storage.createUser(new UserDTO(userId, userName, roles, password, cpr));
 	}
 
-	public void editName(int userId, String newName) {
-		try {
-			for(int i = 0; i < storage.getUserList().size(); i++) {
-				if (storage.getUserList().get(i).getUserId() == userId) {
-					storage.getUserList().get(i).setUserName(newName);
-					storage.updateUser(storage.getUserList().get(i));
-				}
+	public void editName(int userId, String newName) throws DALException {
+		for(int i = 0; i < storage.getUserList().size(); i++) {
+			if (storage.getUserList().get(i).getUserId() == userId) {
+				storage.getUserList().get(i).setUserName(newName);
+				storage.updateUser(storage.getUserList().get(i));
+				return;
 			}
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} throw new DALException("User with ID " + userId + "not found");
+
 	}
 
-	public void editPassword(int userId, String newPassword) {
-		try {
-			for(int i = 0; i < storage.getUserList().size(); i++) {
-				if (storage.getUserList().get(i).getUserId() == userId) {
-					storage.getUserList().get(i).setPassword(newPassword);
-					storage.updateUser(storage.getUserList().get(i));
-				}
+	public void editPassword(int userId, String newPassword) throws DALException {
+		for(int i = 0; i < storage.getUserList().size(); i++) {
+			if (storage.getUserList().get(i).getUserId() == userId) {
+				storage.getUserList().get(i).setPassword(newPassword);
+				storage.updateUser(storage.getUserList().get(i));
+				return;
 			}
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} throw new DALException("User with ID " + userId + "not found");
 	}
 
-	public void editRoles(int userId, ArrayList<String> newRoles) {
+	public void editRoles(int userId, ArrayList<String> newRoles) throws DALException {
 		UserDTO currentUser = null;
-		try {
-			for(int i = 0; i < storage.getUserList().size()-1; i++) {
-				if (storage.getUserList().get(i).getUserId() == userId) {
-					currentUser = storage.getUserList().get(i);
-				}
+		for(int i = 0; i < storage.getUserList().size()-1; i++) {
+			if (storage.getUserList().get(i).getUserId() == userId) {
+				currentUser = storage.getUserList().get(i);
 			}
-			for(int i = 0; i < newRoles.size(); i++) {
-				currentUser.getRoles().add(newRoles.get(i));
-			}
+		}
+		for(int i = 0; i < newRoles.size(); i++) {
+			currentUser.getRoles().add(newRoles.get(i));
+		} 
 
-		}
-		catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	public UserDTO findUser(int userId) {
 		try {
 			return storage.getUser(userId);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 
 	public List<UserDTO> getUserList() throws DALException{
 		return storage.getUserList();
 	}
 
-	public void deleteUser(int userId) {
+	public void deleteUser(int userId) throws DALException {
 		try {
 			storage.deleteUser(userId);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new DALException("User with ID " + userId + "not found");
 		}
 	}
 	public boolean asserIfIdExists(int userId) {
 		try {
 			for(int i = 0; i < storage.getUserList().size(); i++) {
-
 				if(storage.getUserList().get(i).getUserId() == userId) {
 					return true;
 				}
-
-			} } catch (DALException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace(); 
-			} return false;
+			}
+		} catch (DALException e) {
+			return false;
+		} return false;
 	}
 
 	public boolean assertPasswordQuality(String password) {
