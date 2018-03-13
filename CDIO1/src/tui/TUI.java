@@ -1,3 +1,4 @@
+
 package tui;
 
 import java.util.ArrayList;
@@ -130,6 +131,7 @@ public class TUI {
 						"1. Brugernavn\n" + 
 						"2. Password\n" + 
 				"3. Roller");
+		try {
 		switch(in.nextInt()) {
 		case 1: System.out.println("Indtast nyt brugernavn");
 		function.editName(currentUser.getUserId(), in.next());
@@ -152,6 +154,9 @@ public class TUI {
 		}
 		break;
 		}
+		}catch (DALException e) {
+			System.out.println("User not found");
+		}
 	}
 
 	private void listUsers() {
@@ -173,6 +178,8 @@ public class TUI {
 			function.deleteUser(in.nextInt());
 		} catch (InputMismatchException e) {
 			System.out.println("Skriv venligst et tal mellem 11 og 99. Afslutter til hovedmenu");
+		} catch (DALException e) {
+			System.out.println(e.getMessage());
 		}
 
 	}

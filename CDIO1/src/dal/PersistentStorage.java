@@ -78,19 +78,18 @@ public class PersistentStorage implements IUserDAO {
 
 	@Override
 	public void createUser(UserDTO u) throws DALException {
-		// TODO Auto-generated method stub
 		users.add(u);
 		
 	}
 
 	@Override
 	public void updateUser(UserDTO user) throws DALException {
-		// TODO Auto-generated method stub
 		for (int i = 0; i<users.size();i++) {
 			if (users.get(i).getUserId() == user.getUserId()) {
 				users.set(i, user);
+				return;
 			}
-		}	
+		}throw new DALException("User with ID " + user.getUserId() + "not found");	
 	}
 
 	@Override
@@ -99,7 +98,7 @@ public class PersistentStorage implements IUserDAO {
 			if (users.get(i).getUserId() == userId) {
 				users.remove(i);
 			}
-		}
+		} throw new DALException("User with ID " + userId + "not found");	 
 	}
 
 	public void saveTofile() {
@@ -131,10 +130,5 @@ public class PersistentStorage implements IUserDAO {
         } catch (IOException e) {
             e.printStackTrace();
         }
-		
-		
-		
-		
-		
 	}
 }
